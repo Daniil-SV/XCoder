@@ -1,0 +1,26 @@
+{
+    "compileOnSave": true,
+    "compilerOptions": {
+        "target": "es6",
+        "module": "commonjs",
+        "sourceMap": false,
+        "moduleResolution": "node",
+        "outDir": "./",
+        "watch": false,
+        "declaration": false,
+        "removeComments": true,
+        "typeRoots": [
+            "node_modules/@types"
+        ],
+        "resolveJsonModule": true
+    },
+    "include": [
+        "src/**/*.ts"
+    ],
+    "exclude": [
+        "node_modules",
+        "build",
+        "examples",
+        "types"
+    ]
+}

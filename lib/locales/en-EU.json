@@ -1,0 +1,28 @@
+{
+    "xcoderHeader": "XCoder | Version: %s | by DaniilSV & Vorono4ka",
+    "choice": "Your choice: ",
+    "done": "Completed in %s seconds!\n",
+    "toContinue": "Press Enter to continue...",
+
+    "scLabel": "SC",
+    "scToTexture": "Decode .sc texture",
+    "scToTexture_description": "Decodes .sc texture file into png files",
+    "textureToSc": "Encode .sc texture",
+    "textureToSc_description": "Encodes png files to .sc file",
+
+    "otherFeaturesLable": "OTHER",
+    "changeLanguage": "Select another language",
+    "clearDirs": "Recreate workspace dirs",
+    "exit": "Exit",
+    "changeLanguage_description": "Current lang: %s",
+    "clearDirs_description": "Cleans and recreates workspace dirs",
+
+    "aboutTexture": "[%s%] Index: %s, Pixel type: %s, Size: %sx%s",
+    "illegalSize": "Illegal image size! Expected %sx%s but we got %sx%s",
+    "resize_qu": "Would you like to resize an image?",
+
+    "fileLoading": "\nLoading %s...",
+    "fileSaving": "\nSaving %s...",
+
+    "imageSaving": "\nSaving to png..."
+}

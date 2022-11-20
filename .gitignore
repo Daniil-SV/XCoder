@@ -1,0 +1,11 @@
+/node_modules
+/SC
+/lib/config.js
+/lib/console.js
+/lib/constants.js
+/lib/infoFile.js
+/lib/locale.js
+/lib/menu.js
+/lib/features
+/config.json
+/index.js
