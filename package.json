@@ -17,7 +17,7 @@
   "dependencies": {
     "image-js": "^0.35.2",
     "prompt-sync": "^4.2.0",
-    "supercell-swf": "file:..\\SC"
+    "supercell-swf": "^1.0.1"
   },
   "devDependencies": {
     "@types/node": "^18.11.9"
