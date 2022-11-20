@@ -1,0 +1,25 @@
+{
+  "name": "xcoder",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "prepublish": "npm install -g typescript && npm run build && node install.js",
+    "build": "tsc -p ./"
+  },
+  "author": "DaniilSV",
+  "license": "MIT",
+  "files": [
+    "lib",
+    "src",
+    ""
+  ],
+  "dependencies": {
+    "image-js": "^0.35.2",
+    "prompt-sync": "^4.2.0",
+    "supercell-swf": "file:..\\SC"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.9"
+  }
+}
