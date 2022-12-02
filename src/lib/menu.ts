@@ -1,39 +1,24 @@
 const input = require('prompt-sync')({ sigint: true });
 import { colors, bgColors, trace, clearConsole } from './console';
-import { exit, makeDirs, selectLanguage } from './features/other';
 import { locale } from './locale';
 import { config } from './config';
-import { textureEncode, texturesDecode } from './features/textures';
-import { TEXTURE_IN, TEXTURE_IN_SC, TEXTURE_OUT, TEXTURE_OUT_SC } from './constants';
+import { textureDecodeFromFolder, textureEncodeFromFolder } from './features/textures';
+import {
+	COMPRESSION_IN, COMPRESSION_IN_FILE,
+	COMPRESSION_OUT, COMPRESSION_OUT_FILE,
+	TEXTURE_IN, TEXTURE_IN_SC,
+	TEXTURE_OUT, TEXTURE_OUT_SC
+} from './constants';
+import { compressFromFolder, decompressFromFolder } from './features/compression';
+import { COMPRESSION } from 'supercell-swf';
+import wrapText = require('wrap-text');
+import { hrtime } from 'process';
 
-
-export function wrapText(text: string, maxlength: number) {
-	const result = [''];
-	if (maxlength >= text.length) {
-		return text;
-	} else {
-		let totalStrCount = Math.floor(text.length / maxlength);
-		if (text.length % maxlength !== 0) {
-			totalStrCount++;
-		}
-
-		for (let i = 0; i < totalStrCount; i++) {
-			if (i === totalStrCount - 1) {
-				result.push(text);
-			} else {
-				const strPiece = text.substring(0, maxlength - 1);
-				result.push(strPiece);
-				result.push('<br>');
-				text = text.substring(maxlength - 1, text.length);
-			}
-		}
-	}
-	return result.join('');
-}
 
 class Item {
 	name = 'Item name';
 	description = 'Description';
+	showTime = true;
 	handler: Function;
 	arguments: object = {};
 
@@ -41,8 +26,16 @@ class Item {
 		Object.assign(this, options);
 	}
 
-	run(): void {
-		this.handler(this.arguments || arguments);
+	run(...args: any): void {
+		const startTime = hrtime();
+
+		this.handler.apply(this, this.arguments || args);
+		if (this.showTime) {
+			process.stdout.clearLine(0);
+			process.stdout.cursorTo(0);
+			trace(locale['done'], { textColor: colors.black, bgColor: bgColors.green, localeStrings: [hrtime(startTime).join(',')] });
+			input(locale['toContinue']);
+		}
 	}
 
 }
@@ -62,43 +55,7 @@ class Menu {
 	categories: Category[] = [];
 
 	constructor() {
-		const scCategory = new Category(locale.scLabel);
-		this.categories.push(scCategory);
-
-		scCategory.items.push(new Item({
-			name: locale.scToTexture,
-			description: locale.scToTexture_description,
-			handler: texturesDecode,
-			arguments: { inPath: TEXTURE_IN_SC, outPath: TEXTURE_OUT, output: true }
-		}));
-
-		scCategory.items.push(new Item({
-			name: locale.textureToSc,
-			description: locale.textureToSc_description,
-			handler: textureEncode,
-			arguments: { inPath: TEXTURE_IN, outPath: TEXTURE_OUT_SC, output: true }
-		}));
-
-		const otherCategory = new Category(locale.otherFeaturesLable);
-		this.categories.push(otherCategory);
-
-		otherCategory.items.push(new Item({
-			name: locale.clearDirs,
-			description: locale.clearDirs_description,
-			handler: makeDirs
-		}));
-
-		otherCategory.items.push(new Item({
-			name: locale.changeLanguage,
-			description: locale.format(locale.changeLanguage_description, [config.language]),
-			handler: selectLanguage
-		}));
-
-		otherCategory.items.push(new Item({
-			name: locale.exit,
-			description: '',
-			handler: exit
-		}));
+		this.initialize();
 	}
 
 	printCategory(text: string) {
@@ -119,13 +76,102 @@ class Menu {
 		console.log('-'.repeat(width));
 	}
 
+	initialize() {
+		this.categories = [];
+
+		const scTexturesCategory = new Category(locale['scTexturesLabel']);
+		this.categories.push(scTexturesCategory);
+
+		scTexturesCategory.items.push(new Item({
+			name: locale['scToTexture'],
+			description: locale['scToTexture_description'],
+			handler: textureDecodeFromFolder,
+			arguments: [TEXTURE_IN_SC, TEXTURE_OUT, true]
+		}));
+
+		scTexturesCategory.items.push(new Item({
+			name: locale['textureToSc'],
+			description: locale['textureToSc_description'],
+			handler: textureEncodeFromFolder,
+			arguments: [TEXTURE_IN, TEXTURE_OUT_SC, true]
+		}));
+
+		const compressingCategory = new Category(locale['compressionLabel']);
+		this.categories.push(compressingCategory);
+
+		compressingCategory.items.push(new Item({
+			name: locale['fileCompress'],
+			description: locale['fileCompress_description'],
+			handler: compressFromFolder,
+			arguments: [COMPRESSION_IN, COMPRESSION_OUT_FILE, true]
+		}));
+
+		compressingCategory.items.push(new Item({
+			name: locale['fileDecompress'],
+			description: locale['fileDecompress_description'],
+			handler: decompressFromFolder,
+			arguments: [COMPRESSION_IN_FILE, COMPRESSION_OUT, true]
+		}));
+
+		const otherCategory = new Category(locale['otherFeaturesLable']);
+		this.categories.push(otherCategory);
+
+		otherCategory.items.push(new Item({
+			name: locale['clearDirs'],
+			description: locale['clearDirs_description'],
+			showTime: false,
+			handler: function () {
+				config.makeDirs(true);
+			}
+		}));
+
+		otherCategory.items.push(new Item({
+			name: locale['changeLanguage'],
+			description: locale.format(locale['changeLanguage_description'], [config.language]),
+			showTime: false,
+			handler: function () {
+				config.selectLanguage();
+				menu.initialize();
+			}
+		}));
+
+		otherCategory.items.push(new Item({
+			name: locale['changeCompression'],
+			description: locale.format(locale['changeCompression_description'], [COMPRESSION[config.defaultCompression]]),
+			showTime: false,
+			handler: function () {
+				config.selectCompression();
+				menu.initialize();
+			}
+		}));
+
+		otherCategory.items.push(new Item({
+			name: locale['reInit'],
+			description: locale['reInit_description'],
+			showTime: false,
+			handler: function () {
+				config.initialize(true);
+			}
+		}));
+
+		otherCategory.items.push(new Item({
+			name: locale['exit'],
+			description: '',
+			showTime: false,
+			handler: function () {
+				clearConsole();
+				process.exit();
+			}
+		}));
+	}
+
 	choice(): Item {
 		console.clear();
 
 		const width = process.stdout.columns;
-		trace(locale.xcoderHeader, {
+		trace(locale['xcoderHeader'], {
 			center: true, textColor: colors.green, bgColor: bgColors.black,
-			localeStrings: [require('./../package.json').version]
+			localeStrings: [config.version]
 		});
 		trace('github.com/scwmake/XCoder', { center: true });
 
@@ -147,7 +193,7 @@ class Menu {
 			this.printDividerLine(width);
 		}
 
-		const choice = parseInt(input(locale.choice), 10);
+		const choice = parseInt(input(locale['choice']), 10);
 
 		this.printDividerLine(width);
 		if (!choice) {

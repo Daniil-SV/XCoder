@@ -7,8 +7,9 @@
         "moduleResolution": "node",
         "outDir": "./",
         "watch": false,
-        "declaration": false,
-        "removeComments": true,
+        "declaration": true,
+        "declarationDir": "types",
+        "removeComments": false,
         "typeRoots": [
             "node_modules/@types"
         ],
@@ -20,7 +21,6 @@
     "exclude": [
         "node_modules",
         "build",
-        "examples",
-        "types"
+        "examples"
     ]
 }

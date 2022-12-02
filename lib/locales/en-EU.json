@@ -4,25 +4,51 @@
     "done": "Completed in %s seconds!\n",
     "toContinue": "Press Enter to continue...",
 
-    "scLabel": "SC",
+    "scTexturesLabel": "SC-Texture",
     "scToTexture": "Decode .sc texture",
     "scToTexture_description": "Decodes .sc texture file into png files",
     "textureToSc": "Encode .sc texture",
     "textureToSc_description": "Encodes png files to .sc file",
 
+    "scSpritesCategory": "SC-Sprites",
+
+    "scJsonCategory": "SC-JSON",
+
+    "scFlaCategory": "SC-Adobe-Animate",
+
+    "compressionLabel": "Compression",
+    "fileCompress": "Compress files",
+	"fileCompress_description": "Compresses .sc and .csv files",
+	"fileDecompress": "Decompress files",
+	"fileDecompress_description": "Decompresses .sc and .csv files",
+
     "otherFeaturesLable": "OTHER",
     "changeLanguage": "Select another language",
-    "clearDirs": "Recreate workspace dirs",
-    "exit": "Exit",
     "changeLanguage_description": "Current lang: %s",
+    "changeCompression": "Change default compression method",
+    "changeCompression_description": "Current method: %s",
+    "clearDirs": "Recreate workspace dirs",
     "clearDirs_description": "Cleans and recreates workspace dirs",
+    "reInit": "Repeat init",
+    "reInit_description": "If something went wrong",
+    "exit": "Exit",
 
     "aboutTexture": "[%s%] Index: %s, Pixel type: %s, Size: %sx%s",
     "illegalSize": "Illegal image size! Expected %sx%s but we got %sx%s",
     "resize_qu": "Would you like to resize an image?",
+    "compression_qu": "Select the type of compression that will be used to compress files: ",
 
-    "fileLoading": "\nLoading %s...",
-    "fileSaving": "\nSaving %s...",
+    "lzma_describe": "Always used in Brawl Stars. Very slow but compression ratio is very high.",
+    "fastLzma_describe": "Much faster than LZMA but compression ratio is slightly reduced.",
+    "lzham_describe": "",
+    "zstd_describe": "Used in Clash games. The best method in relation to time and compression ratio",
 
-    "imageSaving": "\nSaving to png..."
+    "fileLoading": "Loading %s...",
+    "fileLoaded": "Loaded %s!",
+    "fileSaving": "Saving %s...",
+    "fileSaved": "Saved %s!",
+
+    "wrongInputFile": "Input file is not specified or is invalid!",
+
+    "imageSaving": "Saving to png..."
 }

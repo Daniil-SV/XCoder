@@ -1,5 +1,5 @@
+import wrapText = require('wrap-text');
 import { locale } from './locale';
-import { menu } from './menu';
 const input = require('prompt-sync')({ sigint: true });
 
 export enum colors {
@@ -42,7 +42,6 @@ interface PrintOptions {
 	localeStrings: string[];
 }
 
-
 export function trace(text: string,
 	options?: Partial<PrintOptions>
 ) {
@@ -64,15 +63,15 @@ export function trace(text: string,
 	const lines = text.split('\n');
 
 	for (let lineIndex = 0; lines.length > lineIndex; lineIndex++) {
+		process.stdout.clearLine(0);
+		process.stdout.cursorTo(0);
+
 		const line = lines[lineIndex];
 		if (options.center) {
 			process.stdout.write(' '.repeat((process.stdout.columns / 2) - (line.length / 2)));
 		}
-
 		if (options.isProgress) {
-			process.stdout.clearLine(0);
-			process.stdout.cursorTo(0);
-			process.stdout.write('\r' + options.textColor + line + colors.reset);
+			process.stdout.write(options.textColor + line + colors.reset + '\r');
 		} else {
 			console.log(options.textColor + options.bgColor + line + colors.reset);
 		}
@@ -88,10 +87,10 @@ export function selectFromArray(namesList: string[], descriptionList: string[] =
 		let text = ` ${nameIndex + 1}. ${name}`;
 
 		if (description) {
-			text += ' '.repeat(Math.floor(process.stdout.columns / 2) - text.length) + ': ' + description;
+			text += ' '.repeat(Math.floor(process.stdout.columns / 4) - text.length) + ': ' + description;
 		}
 
-		console.log(text);
+		console.log(wrapText(text, process.stdout.columns));
 	}
 
 	const choice = parseInt(input('>>> '), 10);

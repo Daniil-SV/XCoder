@@ -18,20 +18,28 @@ export function createSWF(output: boolean = true): SupercellSWF {
 				break;
 			case STATES.texture_save:
 			case STATES.texture_load:
-				trace(locale.aboutTexture, {
-					textColor: colors.green, localeStrings: [
+				trace(locale['aboutTexture'], {
+					textColor: colors.green, isProgress: true, localeStrings: [
 						property[0],
 						property[1],
 						swf.textures[property[1]].pixelFormat,
 						swf.textures[property[1]].width,
-						swf.textures[property[1]].height], isProgress: true
+						swf.textures[property[1]].height]
 				});
 				break;
 			case STATES.loading:
-				trace(locale.format(locale.fileLoading, [path.parse(property).base]));
+				trace(locale['fileLoading'], { localeStrings: [path.parse(property).base] });
+				break;
+			case STATES.loadingFinish:
+				trace(locale['fileLoaded'], { localeStrings: [path.parse(property).base] });
 				break;
 			case STATES.saving:
-				trace(locale.format(locale.fileSaving, [path.parse(property).base]));
+				trace(locale['fileSaving'], { localeStrings: [path.parse(property).base] });
+				break;
+			case STATES.savingFinish:
+				trace(locale['fileSaved'], { localeStrings: [path.parse(property).base] });
+				break;
+			default:
 				break;
 		}
 	} : function (state, property) { };
@@ -64,4 +72,3 @@ export function createTexture(filepath: string): Texture {
 
 	return texture;
 }
-
