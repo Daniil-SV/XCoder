@@ -16,10 +16,6 @@ class Config {
 
 	configPath = __dirname + '/config.json';
 
-	MAJOR = this.version.split('.')[0];
-	MINOR = this.version.split('.')[1];
-	PATCH = this.version.split('.')[2];
-
 	initialize(forceInit = false) {
 		if (fs.existsSync(this.configPath) && !forceInit) {
 			const configFile = require(this.configPath);

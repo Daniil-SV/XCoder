@@ -8,9 +8,6 @@ declare class Config {
     warningShown: boolean;
     warningEnabled: boolean;
     configPath: string;
-    MAJOR: any;
-    MINOR: any;
-    PATCH: any;
     initialize(forceInit?: boolean): void;
     selectLanguage(): void;
     selectCompression(): void;

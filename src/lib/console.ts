@@ -68,17 +68,16 @@ export function trace(text: string,
 		process.stdout.cursorTo(0);
 
 		const line = lines[lineIndex];
-		let outText: string;
-		if (options.center) {
-			process.stdout.write(' '.repeat((process.stdout.columns / 2) - (line.length / 2)));
-		}
-		if (options.isProgress) {
-			outText = options.textColor + line + colors.reset + '\r';
-		} else {
-			outText = options.textColor + options.bgColor + line + colors.reset;
-		}
 
-		console.log(outText);
+		if (options.isProgress) {
+			process.stdout.write(options.center ? ' '.repeat((process.stdout.columns / 2) - (line.length / 2)) : ''
+				+ options.textColor + line + colors.reset + '\r');
+		} else {
+			if (options.center) {
+				process.stdout.write(' '.repeat((process.stdout.columns / 2) - (line.length / 2)));
+			}
+			console.log(options.textColor + options.bgColor + line + colors.reset);
+		}
 
 		if (options.isError) {
 			throw new Error(line);

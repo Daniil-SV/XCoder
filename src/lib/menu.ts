@@ -20,15 +20,12 @@ function getNpmVersion(name: string): string {
 	let version = '0.0.0';
 
 	(async () => {
-		const url = `https://registry.npmjs.org/${name}/`;
 		try {
+			const url = `https://registry.npmjs.org/${name}/`;
 			const res = await fetch(url);
 			const data = await res.json();
-			if (data && data.versions) {
-				version = Object.keys(data.versions)[0];
-			} else {
-				version = undefined;
-			}
+			const versions = Object.keys(data.versions);
+			version = versions[versions.length - 1];
 		} catch (e) {
 			version = undefined;
 		}
@@ -61,7 +58,6 @@ class Item {
 			input(locale['toContinue']);
 		}
 	}
-
 }
 
 
@@ -181,9 +177,11 @@ class Menu {
 		if (config.warningEnabled && config.version !== config.lastCheckedVersion) {
 			otherCategory.items.push(new Item({
 				name: locale['disableWarnings'],
+				description: '',
 				showTime: false,
 				handler: function () {
 					config.warningEnabled = false;
+					menu.initialize();
 				}
 			}));
 		}
@@ -201,15 +199,16 @@ class Menu {
 
 	choice(): Item {
 		console.clear();
-		let versionType = 'Latest';
 		const npmVersion = getNpmVersion(config.package);
-		if (npmVersion === undefined) {
-			versionType = 'Unknown';
-		} else if (npmVersion !== config.version) {
+		const width = process.stdout.columns;
+
+		let versionType = 'Unknown';
+		if (npmVersion !== config.version) {
 			versionType = 'Outdated';
+		} else {
+			versionType = 'Latest';
 		}
 
-		const width = process.stdout.columns;
 		trace(locale['xcoderHeader'], {
 			center: true, textColor: colors.green, bgColor: bgColors.black,
 			localeStrings: [config.version, versionType]
@@ -217,27 +216,30 @@ class Menu {
 		trace('github.com/scwmake/XCoder', { center: true });
 
 		if (npmVersion !== undefined) {
-			const [MAJOR, MINOR, PATCH] = npmVersion.split('.');
-			if (MAJOR > config.MAJOR) {
+			const [SERVER_MAJOR, SERVER_MINOR, SERVER_PATCH] = npmVersion.split('.');
+			const [CLIENT_MAJOR, CLIENT_MINOR, CLIENT_PATCH] = config.version.split('.');
+			const [MAJOR, MINOR, PATCH] = config.lastCheckedVersion.split('.');
+
+			if (SERVER_MAJOR > CLIENT_MAJOR) {
 				trace(locale['outdatedPackage'], { textColor: colors.red, center: true, localeStrings: [config.version] });
-				trace(locale['updateCommand'], { textColor: colors.yellow, isError: true, localeStrings: [config.package] });
-			} else if (MINOR > config.MINOR) {
-				versionType = 'Outdated';
+				trace(locale['updateCommand'], { textColor: colors.yellow, center: true, isError: true, localeStrings: [config.package] });
+			} else if (SERVER_MINOR > CLIENT_MINOR) {
 				if (config.warningEnabled) {
 					trace(locale['oldVersion'], { textColor: colors.green, localeStrings: [npmVersion], center: true });
 					trace(locale['updateCommand'], { textColor: colors.yellow, center: true, localeStrings: [config.package] });
 				}
-			} else if (PATCH > config.PATCH) {
+			} else if (SERVER_PATCH > PATCH) {
 				if (npmVersion !== config.lastCheckedVersion) {
 					config.warningShown = false;
-					config.lastCheckedVersion = npmVersion;
 					if (config.warningEnabled && !config.warningShown) {
-						trace(locale['oldVersion'], { textColor: colors.green, localeStrings: [npmVersion] });
+						trace(locale['oldVersion'], { textColor: colors.green, center: true, localeStrings: [npmVersion] });
 						trace(locale['updateCommand'], { textColor: colors.yellow, center: true, localeStrings: [config.package] });
 						config.warningShown = true;
 					}
 				}
 			}
+
+			config.lastCheckedVersion = npmVersion;
 			config.dump();
 		}
 
