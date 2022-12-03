@@ -15,10 +15,6 @@
   "author": "DaniilSV",
   "license": "MIT",
   "repository": "https://github.com/scwmake/XCoder",
-  "files": [
-    "locales",
-    "types"
-  ],
   "dependencies": {
     "deasync": "^0.1.28",
     "image-js": "^0.35.2",

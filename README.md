@@ -7,7 +7,7 @@
 ## Installing:
 Create a folder in any place convenient for you. Then open a terminal inside it and run the command:
 ```
-npm install xcoder -g
+npm install @daniil_sv/xcoder -g
 ```
 <strong>After the first launch</strong>, you will go through a small configuration process during which working folders will be created.
 
