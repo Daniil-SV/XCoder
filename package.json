@@ -1,5 +1,5 @@
 {
-  "name": "xcoder",
+  "name": "@daniil_sv/xcoder",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -16,18 +16,21 @@
   "license": "MIT",
   "repository": "https://github.com/scwmake/XCoder",
   "files": [
-    "src",
-    "lib/locales",
+    "locales",
     "types"
   ],
   "dependencies": {
+    "deasync": "^0.1.28",
     "image-js": "^0.35.2",
+    "node-fetch": "^2.6.6",
+    "package-json": "^8.1.0",
     "prompt-sync": "^4.2.0",
     "supercell-swf": "^1.1.3",
     "wrap-text": "^1.0.9",
     "yargs": "^17.6.2"
   },
   "devDependencies": {
+    "@types/deasync": "^0.1.2",
     "@types/node": "^18.11.9",
     "@types/wrap-text": "^1.0.0",
     "@types/yargs": "^17.0.15"

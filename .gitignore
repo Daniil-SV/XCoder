@@ -2,12 +2,6 @@
 /sandbox
 /.vs
 
-/lib/constants.js
-/lib/features
-/lib/menu.js
-/lib/locale.js
-/lib/console.js
-/lib/config.json
-/lib/config.js
 /bin
 /index.js
+/lib

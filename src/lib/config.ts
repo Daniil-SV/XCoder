@@ -6,11 +6,19 @@ import { DIRS } from './constants';
 import { locale } from './locale';
 
 class Config {
+	package = require('./../package.json').name;
 	version = require('./../package.json').version;
 	defaultCompression: COMPRESSION = COMPRESSION.FAST_LZMA;
 	language = 'en-EU';
+	lastCheckedVersion: string = undefined;
+	warningShown = true;
+	warningEnabled = true;
 
 	configPath = __dirname + '/config.json';
+
+	MAJOR = this.version.split('.')[0];
+	MINOR = this.version.split('.')[1];
+	PATCH = this.version.split('.')[2];
 
 	initialize(forceInit = false) {
 		if (fs.existsSync(this.configPath) && !forceInit) {
@@ -18,6 +26,8 @@ class Config {
 			Object.assign(this, configFile);
 			locale.load(this.language);
 		} else {
+			this.warningShown = true;
+			this.warningEnabled = true;
 			this.selectLanguage();
 			this.selectCompression();
 		}
@@ -86,7 +96,10 @@ class Config {
 	dump(): void {
 		fs.writeFileSync(this.configPath, JSON.stringify({
 			language: this.language,
-			defaultCompression: this.defaultCompression
+			defaultCompression: this.defaultCompression,
+			lastCheckedVersion: this.lastCheckedVersion,
+			warningShown: this.warningShown,
+			warningEnabled: this.warningEnabled
 		}));
 	}
 }

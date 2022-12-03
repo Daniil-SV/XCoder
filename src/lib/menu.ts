@@ -13,6 +13,30 @@ import { compressFromFolder, decompressFromFolder } from './features/compression
 import { COMPRESSION } from 'supercell-swf';
 import wrapText = require('wrap-text');
 import { hrtime } from 'process';
+import * as deasync from 'deasync';
+import fetch from 'node-fetch';
+
+function getNpmVersion(name: string): string {
+	let version = '0.0.0';
+
+	(async () => {
+		const url = `https://registry.npmjs.org/${name}/`;
+		try {
+			const res = await fetch(url);
+			const data = await res.json();
+			if (data && data.versions) {
+				version = Object.keys(data.versions)[0];
+			} else {
+				version = undefined;
+			}
+		} catch (e) {
+			version = undefined;
+		}
+	})();
+
+	deasync.loopWhile(function () { return version === '0.0.0'; });
+	return version;
+}
 
 
 class Item {
@@ -113,7 +137,7 @@ class Menu {
 			arguments: [COMPRESSION_IN_FILE, COMPRESSION_OUT, true]
 		}));
 
-		const otherCategory = new Category(locale['otherFeaturesLable']);
+		const otherCategory = new Category(locale['otherFeaturesLabel']);
 		this.categories.push(otherCategory);
 
 		otherCategory.items.push(new Item({
@@ -154,6 +178,16 @@ class Menu {
 			}
 		}));
 
+		if (config.warningEnabled && config.version !== config.lastCheckedVersion) {
+			otherCategory.items.push(new Item({
+				name: locale['disableWarnings'],
+				showTime: false,
+				handler: function () {
+					config.warningEnabled = false;
+				}
+			}));
+		}
+
 		otherCategory.items.push(new Item({
 			name: locale['exit'],
 			description: '',
@@ -167,13 +201,45 @@ class Menu {
 
 	choice(): Item {
 		console.clear();
+		let versionType = 'Latest';
+		const npmVersion = getNpmVersion(config.package);
+		if (npmVersion === undefined) {
+			versionType = 'Unknown';
+		} else if (npmVersion !== config.version) {
+			versionType = 'Outdated';
+		}
 
 		const width = process.stdout.columns;
 		trace(locale['xcoderHeader'], {
 			center: true, textColor: colors.green, bgColor: bgColors.black,
-			localeStrings: [config.version]
+			localeStrings: [config.version, versionType]
 		});
 		trace('github.com/scwmake/XCoder', { center: true });
+
+		if (npmVersion !== undefined) {
+			const [MAJOR, MINOR, PATCH] = npmVersion.split('.');
+			if (MAJOR > config.MAJOR) {
+				trace(locale['outdatedPackage'], { textColor: colors.red, center: true, localeStrings: [config.version] });
+				trace(locale['updateCommand'], { textColor: colors.yellow, isError: true, localeStrings: [config.package] });
+			} else if (MINOR > config.MINOR) {
+				versionType = 'Outdated';
+				if (config.warningEnabled) {
+					trace(locale['oldVersion'], { textColor: colors.green, localeStrings: [npmVersion], center: true });
+					trace(locale['updateCommand'], { textColor: colors.yellow, center: true, localeStrings: [config.package] });
+				}
+			} else if (PATCH > config.PATCH) {
+				if (npmVersion !== config.lastCheckedVersion) {
+					config.warningShown = false;
+					config.lastCheckedVersion = npmVersion;
+					if (config.warningEnabled && !config.warningShown) {
+						trace(locale['oldVersion'], { textColor: colors.green, localeStrings: [npmVersion] });
+						trace(locale['updateCommand'], { textColor: colors.yellow, center: true, localeStrings: [config.package] });
+						config.warningShown = true;
+					}
+				}
+			}
+			config.dump();
+		}
 
 		this.printDividerLine(width);
 

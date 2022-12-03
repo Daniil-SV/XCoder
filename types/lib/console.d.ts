@@ -32,6 +32,7 @@ interface PrintOptions {
     textColor: colors;
     bgColor: bgColors;
     isProgress: boolean;
+    isError: boolean;
     localeStrings: string[];
 }
 export declare function trace(text: string, options?: Partial<PrintOptions>): string;

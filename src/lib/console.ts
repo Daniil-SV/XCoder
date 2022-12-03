@@ -39,6 +39,7 @@ interface PrintOptions {
 	textColor: colors;
 	bgColor: bgColors;
 	isProgress: boolean;
+	isError: boolean;
 	localeStrings: string[];
 }
 
@@ -67,13 +68,20 @@ export function trace(text: string,
 		process.stdout.cursorTo(0);
 
 		const line = lines[lineIndex];
+		let outText: string;
 		if (options.center) {
 			process.stdout.write(' '.repeat((process.stdout.columns / 2) - (line.length / 2)));
 		}
 		if (options.isProgress) {
-			process.stdout.write(options.textColor + line + colors.reset + '\r');
+			outText = options.textColor + line + colors.reset + '\r';
 		} else {
-			console.log(options.textColor + options.bgColor + line + colors.reset);
+			outText = options.textColor + options.bgColor + line + colors.reset;
+		}
+
+		console.log(outText);
+
+		if (options.isError) {
+			throw new Error(line);
 		}
 
 	}

@@ -1,5 +1,8 @@
 {
-    "xcoderHeader": "XCoder | Version: %s | by DaniilSV & Vorono4ka",
+    "xcoderHeader": "XCoder | Version: %s (%s) | by DaniilSV & Vorono4ka",
+    "outdatedPackage": "Version %s is out of date! Update package to work with",
+    "oldVersion": "It looks like you are using an old version of XCoder. Current actual version: %s. To update use",
+    "updateCommand": "npm update %s -g",
     "choice": "Your choice: ",
     "done": "Completed in %s seconds!\n",
     "toContinue": "Press Enter to continue...",
@@ -22,7 +25,7 @@
 	"fileDecompress": "Decompress files",
 	"fileDecompress_description": "Decompresses .sc and .csv files",
 
-    "otherFeaturesLable": "OTHER",
+    "otherFeaturesLabel": "OTHER",
     "changeLanguage": "Select another language",
     "changeLanguage_description": "Current lang: %s",
     "changeCompression": "Change default compression method",
@@ -31,6 +34,7 @@
     "clearDirs_description": "Cleans and recreates workspace dirs",
     "reInit": "Repeat init",
     "reInit_description": "If something went wrong",
+    "disableWarnings": "Disable update warnings",
     "exit": "Exit",
 
     "aboutTexture": "[%s%] Index: %s, Pixel type: %s, Size: %sx%s",
