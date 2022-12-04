@@ -6,7 +6,9 @@
   "bin": {
     "xcoder": "bin/xcoder.js",
     "sc-compress": "bin/compress.js",
-    "sc-decompress": "bin/decompress.js"
+    "sc-decompress": "bin/decompress.js",
+    "sc2tex": "bin/textureDecode.js",
+    "tex2sc": "bin/textureEncode.js"
   },
   "scripts": {
     "prepublish": "npm install -g typescript && npm run build",

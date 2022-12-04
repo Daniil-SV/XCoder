@@ -53,6 +53,28 @@ Each parameter can be optional
 To decode sc to png you need to copy your files to  ```Sc-Textures/In-SC-Textures/```
 and run the operation in XCoder, after that get folders with output in ```Sc-Textures/Out-Textures/```.
 Folders contain textures and a ["json"](#texture_main) file with information about them.
+### Terminal access:
+To decode file, run following command:
+```
+sc2tex
+```
+
+Command arguments:
+```
+-i, --input : Required parameter. Path to folder with files or path to file. If a folder is specified and no output is specified, creates a new folder with "_textures" prefix that will contain processed files.
+
+-o, --output : Optional parameter. Name of output folder.
+```
+
+Examples:
+```
+sc2tex -i sc/ui_highres_tex.sc -o sc/ui_textures
+````
+<strong> OR </strong>
+```
+sc2tex -i sc/
+```
+<em><strong>output will automatically be "sc_textures/"</strong></em>.
 
 ## Encoding from .png to .sc <a name = "texture_encoding"></a>
 You have 2 ways:
@@ -60,6 +82,23 @@ You have 2 ways:
 2. You can create textures from scratch. Create a folder in ```Sc-Textures/In-Textures/``` with name of texture and put png there. Json file is optional.
 
 After that, you can get files in ```Sc-Textures/Out-SC-Textures/```.
+### Terminal access:
+To encode textures, run following command:
+```
+tex2sc
+```
+
+Command arguments:
+```
+-i, --input : Required parameter. Path to folder with .png textures.
+
+-o, --output : Optional parameter. Name of output folder.
+```
+
+Example:
+```
+tex2sc -i ui_highres_tex -o ui_highres_tex.sc
+````
 
 <br/><br/>
 
