@@ -11,6 +11,10 @@ export const COMPRESSION_IN = `${COMPRESSION_CATEGORY}/In-files`;
 export const COMPRESSION_OUT_FILE = `${COMPRESSION_CATEGORY}/Out-Compressed-files`;
 export const COMPRESSION_OUT = `${COMPRESSION_CATEGORY}/Out-files`;
 
+export const MERGE_CATEGORY = './SC-Merge';
+export const MERGE_IN = `${MERGE_CATEGORY}/In-File`;
+export const MERGE_OUT = `${MERGE_CATEGORY}/Out-File`;
+
 export const DIRS = [
 	TEXTURE_CATEGORY,
 	TEXTURE_IN_SC,
@@ -22,5 +26,9 @@ export const DIRS = [
 	COMPRESSION_IN_FILE,
 	COMPRESSION_IN,
 	COMPRESSION_OUT_FILE,
-	COMPRESSION_OUT
+	COMPRESSION_OUT,
+
+	MERGE_CATEGORY,
+	MERGE_IN,
+	MERGE_OUT
 ];

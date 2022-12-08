@@ -13,6 +13,8 @@ class Config {
 	lastCheckedVersion: string = undefined;
 	warningShown = true;
 	warningEnabled = true;
+	packerPath: string;
+	animatePath: string;
 
 	configPath = __dirname + '/config.json';
 
@@ -26,15 +28,19 @@ class Config {
 			this.warningEnabled = true;
 			this.selectLanguage();
 			this.selectCompression();
+			if (process.platform === 'win32' || process.platform === 'darwin') {
+				this.selectAnimatePath();
+				this.selectPackerPath();
+			}
 		}
 
 		this.makeDirs();
+		this.dump();
 	}
 
 	selectLanguage(): void {
 		clearConsole();
 		this.language = locale.change();
-		this.dump();
 		locale.initialize();
 		clearConsole();
 	}
@@ -73,8 +79,23 @@ class Config {
 		clearConsole();
 		trace(locale['compression_qu']);
 		this.defaultCompression = selectFromArray(compressions, compressionDescribes) + 1;
-		this.dump();
 		clearConsole();
+	}
+
+	selectAnimatePath(): void {
+		if (this.animatePath && fs.existsSync(this.animatePath)) {
+			return;
+		} else {
+
+		}
+	}
+
+	selectPackerPath(): void {
+		if (this.packerPath && fs.existsSync(this.packerPath)) {
+			return;
+		} else {
+
+		}
 	}
 
 	makeDirs(force = false): void {
@@ -95,7 +116,9 @@ class Config {
 			defaultCompression: this.defaultCompression,
 			lastCheckedVersion: this.lastCheckedVersion,
 			warningShown: this.warningShown,
-			warningEnabled: this.warningEnabled
+			warningEnabled: this.warningEnabled,
+			animatePath: this.animatePath,
+			packerPath: this.packerPath
 		}));
 	}
 }

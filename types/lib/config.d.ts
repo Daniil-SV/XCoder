@@ -7,10 +7,14 @@ declare class Config {
     lastCheckedVersion: string;
     warningShown: boolean;
     warningEnabled: boolean;
+    packerPath: string;
+    animatePath: string;
     configPath: string;
     initialize(forceInit?: boolean): void;
     selectLanguage(): void;
     selectCompression(): void;
+    selectAnimatePath(): void;
+    selectPackerPath(): void;
     makeDirs(force?: boolean): void;
     dump(): void;
 }

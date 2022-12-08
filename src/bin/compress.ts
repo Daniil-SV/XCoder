@@ -27,5 +27,5 @@ if (existsSync(inPath)) {
 	}
 
 } else {
-	trace(locale['wrongInputFile'], {textColor: colors.red});
+	trace(locale['wrongInputFile'], { textColor: colors.red });
 }

@@ -6,41 +6,84 @@
     "choice": "Your choice: ",
     "done": "Completed in %s seconds!\n",
     "toContinue": "Press Enter to continue...",
+    "pathToFile": "Enter path to %s >>>",
+
+    "scCategory": "SC",
+
+    "scToJson": "Convert .sc to JSON",
+    "scToJson_description": "Converts sc files to readable separate .json files",
+
+    "jsonToSc": "Convert JSON to .sc",
+    "jsonToSc_description": "Makes changes from .json files to .sc file",
+
+    "scMerge": "Merge .sc files",
+    "scMerge_description": "Merges files in a folder into one file",
+
+    "sheetToSc": "Sprite sheet to .sc",
+    "sheetToSc_description": "Converts a sequence of sprites to .sc file",
+
 
     "scTexturesLabel": "SC-Texture",
-    "scToTexture": "Decode .sc texture",
-    "scToTexture_description": "Decodes .sc texture file into png files",
-    "textureToSc": "Encode .sc texture",
-    "textureToSc_description": "Encodes png files to .sc file",
 
-    "scSpritesCategory": "SC-Sprites",
+    "scToTexture": "Decode _tex.sc files",
+    "scToTexture_description": "Decodes _tex.sc file into png files",
 
-    "scJsonCategory": "SC-JSON",
+    "textureToSc": "Encode _tex.sc files",
+    "textureToSc_description": "Encodes png files to _tex.sc file",
 
-    "scFlaCategory": "SC-Adobe-Animate",
+
+    "scSpritesLabel": "SC-Sprites",
+
+    "scToSprites": "Convert .sc to sprites",
+    "scToSprites_describe": "",
+
+    "spritesToSc": "Convert sprites to .sc",
+    "spritesToSc_describe": "",
+
+
+    "adobeSclabel": "SC-Adobe",
+
+    "scToFla": "Convert .sc to .fla",
+    "scToFla_description": "Converts .sc file to .fla file for Adobe Animate",
+
+    "flaToSc": "Convert .fla to .sc",
+    "flaToSc_description": "Converts Animate .fla file to .sc file",
+
 
     "compressionLabel": "Compression",
+
     "fileCompress": "Compress files",
 	"fileCompress_description": "Compresses .sc and .csv files",
+
 	"fileDecompress": "Decompress files",
 	"fileDecompress_description": "Decompresses .sc and .csv files",
 
+
     "otherFeaturesLabel": "OTHER",
+
     "changeLanguage": "Select another language",
     "changeLanguage_description": "Current lang: %s",
+
     "changeCompression": "Change default compression method",
     "changeCompression_description": "Current method: %s",
+
     "clearDirs": "Recreate workspace dirs",
     "clearDirs_description": "Cleans and recreates workspace dirs",
+
     "reInit": "Repeat init",
     "reInit_description": "If something went wrong",
+
     "disableWarnings": "Disable update warnings",
     "exit": "Exit",
 
+
     "aboutTexture": "[%s%] Index: %s, Pixel type: %s, Size: %sx%s",
     "illegalSize": "Illegal image size! Expected %sx%s but we got %sx%s",
+
     "resize_qu": "Would you like to resize an image?",
     "compression_qu": "Select the type of compression that will be used to compress files: ",
+    "packer_qu": "Want to use Texture Packer? It is needed for optimized image sequence conversion and .fla files conversion",
+    "animate_qu": "Want to use Adobe Animate? This includes functions for converting sc to fla and vice versa",
 
     "lzma_describe": "Always used in Brawl Stars. Very slow but compression ratio is very high.",
     "fastLzma_describe": "Much faster than LZMA but compression ratio is slightly reduced.",
@@ -53,6 +96,5 @@
     "fileSaved": "Saved %s!",
 
     "wrongInputFile": "Input file is not specified or is invalid!",
-
     "imageSaving": "Saving to png..."
 }

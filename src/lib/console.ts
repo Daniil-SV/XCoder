@@ -109,7 +109,7 @@ export function selectFromArray(namesList: string[], descriptionList: string[] =
 
 }
 
-export function question(message: string) {
+export function question(message: string, ) {
 	let answer: string;
 	while (!'ny'.includes(answer)) {
 		answer = input(`[????] ${message} [Y/n] `).toLowerCase();

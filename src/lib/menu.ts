@@ -6,6 +6,8 @@ import { textureDecodeFromFolder, textureEncodeFromFolder } from './features/tex
 import {
 	COMPRESSION_IN, COMPRESSION_IN_FILE,
 	COMPRESSION_OUT, COMPRESSION_OUT_FILE,
+	MERGE_IN,
+	MERGE_OUT,
 	TEXTURE_IN, TEXTURE_IN_SC,
 	TEXTURE_OUT, TEXTURE_OUT_SC
 } from './constants';
@@ -15,6 +17,7 @@ import wrapText = require('wrap-text');
 import { hrtime } from 'process';
 import * as deasync from 'deasync';
 import fetch from 'node-fetch';
+import { mergeScFromFolder } from './features/merge';
 
 function getNpmVersion(name: string): string {
 	let version = '0.0.0';
@@ -98,6 +101,16 @@ class Menu {
 
 	initialize() {
 		this.categories = [];
+
+		const scCategory = new Category(locale['scCategory']);
+		this.categories.push(scCategory);
+
+		scCategory.items.push(new Item({
+			name: locale['scMerge'],
+			description: locale['scMerge_description'],
+			handler: mergeScFromFolder,
+			arguments: [MERGE_IN, MERGE_OUT, true]
+		}));
 
 		const scTexturesCategory = new Category(locale['scTexturesLabel']);
 		this.categories.push(scTexturesCategory);

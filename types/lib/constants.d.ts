@@ -8,4 +8,7 @@ export declare const COMPRESSION_IN_FILE: string;
 export declare const COMPRESSION_IN: string;
 export declare const COMPRESSION_OUT_FILE: string;
 export declare const COMPRESSION_OUT: string;
+export declare const MERGE_CATEGORY = "./SC-Merge";
+export declare const MERGE_IN: string;
+export declare const MERGE_OUT: string;
 export declare const DIRS: string[];
