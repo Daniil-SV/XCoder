@@ -64,7 +64,7 @@
     "changeLanguage": "Select another language",
     "changeLanguage_description": "Current lang: %s",
 
-    "changeCompression": "Change default compression method",
+    "changeCompression": "Change compression method",
     "changeCompression_description": "Current method: %s",
 
     "clearDirs": "Recreate workspace dirs",
