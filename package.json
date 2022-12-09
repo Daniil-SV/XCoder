@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "bin": {
-    "xcoder": "bin/xcoder.js",
-    "sc-compress": "bin/compress.js",
+    "xcoder": ".bin/xcoder.js",
+    "sc-compress": ".bin/compress.js",
     "sc-decompress": "bin/decompress.js",
-    "sc2tex": "bin/textureDecode.js",
-    "tex2sc": "bin/textureEncode.js"
+    "sc2tex": ".bin/textureDecode.js",
+    "tex2sc": ".bin/textureEncode.js"
   },
   "scripts": {
     "prepublish": "npm install -g typescript && npm run build",
@@ -23,7 +23,7 @@
     "node-fetch": "^2.6.6",
     "package-json": "^8.1.0",
     "prompt-sync": "^4.2.0",
-    "supercell-swf": "^1.1.3",
+    "supercell-swf": "^1.1.4",
     "wrap-text": "^1.0.9",
     "yargs": "^17.6.2"
   },

@@ -14,7 +14,6 @@ declare class Category {
 }
 declare class Menu {
     categories: Category[];
-    constructor();
     printCategory(text: string): void;
     printFeature(id: number, name: string, description?: string, width?: number): void;
     printDividerLine(width: number): void;

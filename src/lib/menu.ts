@@ -77,10 +77,6 @@ class Category {
 class Menu {
 	categories: Category[] = [];
 
-	constructor() {
-		this.initialize();
-	}
-
 	printCategory(text: string) {
 		trace(text, { textColor: colors.black, bgColor: bgColors.green });
 	}
