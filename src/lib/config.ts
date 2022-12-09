@@ -10,7 +10,7 @@ class Config {
 	version = require('./../package.json').version;
 	defaultCompression: COMPRESSION = COMPRESSION.FAST_LZMA;
 	language = 'en-EU';
-	lastCheckedVersion: string = undefined;
+	lastCheckedVersion = '0.0.0';
 	warningShown = true;
 	warningEnabled = true;
 	packerPath: string;
