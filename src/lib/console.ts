@@ -64,17 +64,19 @@ export function trace(text: string,
 	const lines = text.split('\n');
 
 	for (let lineIndex = 0; lines.length > lineIndex; lineIndex++) {
+		const line = lines[lineIndex];
+		let width = (process.stdout.columns / 2) - (line.length / 2);
+		width = width > 0 ? width : 0;
+
 		process.stdout.clearLine(0);
 		process.stdout.cursorTo(0);
 
-		const line = lines[lineIndex];
-
 		if (options.isProgress) {
-			process.stdout.write(options.center ? ' '.repeat((process.stdout.columns / 2) - (line.length / 2)) : ''
+			process.stdout.write(options.center ? ' '.repeat(width) : ''
 				+ options.textColor + line + colors.reset + '\r');
 		} else {
 			if (options.center) {
-				process.stdout.write(' '.repeat((process.stdout.columns / 2) - (line.length / 2)));
+				process.stdout.write(' '.repeat(width));
 			}
 			console.log(options.textColor + options.bgColor + line + colors.reset);
 		}

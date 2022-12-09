@@ -1,6 +1,7 @@
 .git*
-node_modules/
-src
-tslint.json
-tsconfig.json
-.vs
+/node_modules
+/sandbox
+/src
+/tslint.json
+/tsconfig.json
+/.vscode
