@@ -83,12 +83,12 @@ class Menu {
 
 	printFeature(id: number, name: string, description: string = undefined, width = -1) {
 		let text = ` ${id} ${name}`;
-
+		const space = width = Math.floor(width / 2) - text.length;
 		if (description) {
-			text += ' '.repeat(Math.floor(width / 2) - text.length) + ': ' + description;
+			text += ' '.repeat(space > 0 ? space : 0) + ': ' + description;
 		}
 
-		console.log(wrapText(text, width));
+		console.log(wrapText(text, space));
 	}
 
 	printDividerLine(width: number) {
