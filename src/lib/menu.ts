@@ -229,6 +229,7 @@ class Menu {
 		trace('github.com/scwmake/XCoder', { center: true });
 
 		if (npmVersion !== undefined) {
+			config.lastCheckedVersion = npmVersion;
 			const [SERVER_MAJOR, SERVER_MINOR, SERVER_PATCH] = npmVersion.split('.');
 			const [CLIENT_MAJOR, CLIENT_MINOR, CLIENT_PATCH] = config.version.split('.');
 			const [MAJOR, MINOR, PATCH] = config.lastCheckedVersion.split('.');
@@ -251,12 +252,11 @@ class Menu {
 					}
 				}
 			}
-
-			config.lastCheckedVersion = npmVersion;
 			config.dump();
 		}
 
 		this.printDividerLine(width);
+		this.initialize();
 
 		let itemsCounter = 1;
 		const items = {};
